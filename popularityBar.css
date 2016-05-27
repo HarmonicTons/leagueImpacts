@@ -1,0 +1,50 @@
+.popularity-bar {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	background: 
+		linear-gradient(
+			to top, 
+			rgba(0,0,0,0.3),
+			rgba(255,255,255,0.2)
+		),
+		repeating-linear-gradient(
+		  -45deg,
+		  #999999,
+		  #999999 5px,
+		  #DDDDDD 5px,
+		  #DDDDDD 10px
+		);
+	border: 1px #333333 solid;
+	border-radius: 5px;
+	overflow: hidden;
+	position: relative;
+}
+.available-bar {
+	position: absolute;
+	height: 100%;
+	border: 1px #333333 solid;
+	margin: -1px;
+	border-radius: 5px;
+	overflow: hidden;
+	background: 
+		linear-gradient(
+			to top, 
+			rgba(0,0,0,0.2),
+			rgba(255,255,255,0.2)
+		),
+		#EEEEEE
+	;
+}
+.played-bar {
+	height: 100%;
+	background: 
+		linear-gradient(
+			to top, 
+			rgba(0,0,0,0.2),
+			rgba(255,255,255,0.2)
+		),
+	 	#E02424
+	;
+}
