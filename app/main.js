@@ -12,9 +12,31 @@ define(function (require) {
 
     	analyzer.setDataSample(data);
 		var ctnr = document.getElementById("test");
-		renderer.drawPopularityBar(ctnr,analyzer.championsData["Aatrox"]);
 
-		console.log(analyzer.championsData["Swain"].trueImpact);
+		var sortedChamps = analyzer.sortChampionsDataBy("trueImpact");
+
+
+		for (var championName of sortedChamps){
+			renderer.drawPopularityBar(ctnr,analyzer.championsData[championName]);
+			var vis = analyzer.championsData[championName].win * analyzer.championsData[championName].played;
+			var tru = analyzer.championsData[championName].trueImpact * 100;
+			var d = vis / tru;
+			console.log(championName + ": " + vis.toPrecision(2) +  "% , " + tru.toPrecision(2) + "%");
+		}
+
+		//console.table(analyzer.championsData);
+		// console.log(analyzer.sum("picked").toPrecision(3));
+		// console.log(analyzer.sum("banned").toPrecision(3));
+		// console.log(analyzer.wAverage("win","picked").toPrecision(3));
+		// console.log("-");
+		// console.log(analyzer.sum("calculatedPicked").toPrecision(3));
+		// console.log(analyzer.wAverage("win","calculatedPicked").toPrecision(3));
+		// console.log("-");
+		// console.log(analyzer.average("visibleImpact").toPrecision(3));
+		// console.log(analyzer.championsData["Swain"].visibleImpact);
+		// console.log("-");
+		// console.log(analyzer.average("trueImpact").toPrecision(3));
+		// console.log(analyzer.championsData["Swain"].trueImpact);
     }
 
 });

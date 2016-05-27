@@ -9,16 +9,35 @@ define(function () {
 		this.picked 		= picked;
 		this.banned 		= banned;
 		this.games 			= games;
-		this.popularity 	= picked + banned;
 		this.availability 	= 1 - banned;
-		this.played 		= picked / this.availability;
-		this.absenteeism 	= 1 - this.popularity;
-		this.visibleImpact 	= 0.5 - (5 - win*picked)/(10 - picked);
+		this.estimatedImpact = 0.5 - (5 - win*picked)/(10 - picked);
 	}
 	function newChampionModel(analyzer, name, win, picked, banned, games){
 		var champion = new ChampionModel(name, win, picked, banned, games);
+		// the picked stat can be up to 20% different if calculated or directly taken from the source
+		Object.defineProperty(champion, "calculatedPicked", {get : function(){ 
+			return this.games / analyzer.sum("games") * 10;
+		}});
+		Object.defineProperty(champion, "popularity", {get : function(){ 
+			return this.calculatedPicked + this.banned;
+		}});
+		Object.defineProperty(champion, "played", {get : function(){ 
+			return this.calculatedPicked / this.availability;
+		}});
+		Object.defineProperty(champion, "absenteeism", {get : function(){ 
+			return 1 - this.popularity;
+		}});
+		Object.defineProperty(champion, "visibleImpact", {get : function(){ 
+			var wAvrgWin = analyzer.wAverage("win","calculatedPicked");
+			var wAvrgWinWithoutThisChamp = (analyzer.mSum("win","calculatedPicked") - this.win*this.calculatedPicked)/(analyzer.sum("calculatedPicked") - this.calculatedPicked);
+			var delta = (wAvrgWin - wAvrgWinWithoutThisChamp) / wAvrgWin;
+			return delta;
+		}});
 		Object.defineProperty(champion, "trueImpact", {get : function(){ 
-			return analyzer.wAverage("win","played") - (analyzer.mSum("win","played") - this.win*this.played)/(analyzer.sum("played") - this.played);
+			var wAvrgWin = analyzer.wAverage("win","played");
+			var wAvrgWinWithoutThisChamp = (analyzer.mSum("win","played") - this.win*this.played)/(analyzer.sum("played") - this.played);
+			var delta = (wAvrgWin - wAvrgWinWithoutThisChamp) / wAvrgWin;
+			return delta;
 		}});
 		return champion;
 	}
@@ -63,7 +82,7 @@ define(function () {
 			console.log("Champions'data updated.")
 		},
 		nbOfChampions: function(){
-			return this.championsData.keys.length;
+			return Object.keys(this.championsData).length;
 		},
 		// sum(a)
 		sum: function(prop){
@@ -122,6 +141,16 @@ define(function () {
 			var wAverage = this.mSum(value,weight) / this.sum(weight)
 			this._operationsDone["wAverage-"+value+"-"+weight] = wAverage;
 			return wAverage;
+		},
+		sortChampionsDataBy: function(prop){
+			var championsData = this.championsData;
+			var championsList = Object.keys(championsData);
+			championsList.sort(function(a,b){
+				if (championsData[a][prop] > championsData[b][prop]) return 1;
+				if (championsData[a][prop] < championsData[b][prop]) return -1;
+				return 0;
+			});
+			return championsList;
 		}
 	}
 
