@@ -11,18 +11,22 @@ define(function (require) {
     function start(data){
 
     	analyzer.setDataSample(data);
+
+    	console.log("Number of champions: "  + analyzer.nbOfChampions());
+		console.log("Number of games: "  + analyzer.sum("games"));
+
 		var ctnr = document.getElementById("test");
+		renderer.drawGraph(ctnr, analyzer.championsData, "win", "played", 0.40, 0.60, 0, 0.6);
 
-		var sortedChamps = analyzer.sortChampionsDataBy("trueImpact");
-
-
-		for (var championName of sortedChamps){
-			renderer.drawPopularityBar(ctnr,analyzer.championsData[championName]);
-			var vis = analyzer.championsData[championName].win * analyzer.championsData[championName].played;
-			var tru = analyzer.championsData[championName].trueImpact * 100;
-			var d = vis / tru;
-			console.log(championName + ": " + vis.toPrecision(2) +  "% , " + tru.toPrecision(2) + "%");
-		}
+		// var sortedChamps = analyzer.sortChampionsDataBy("trueImpact");
+		// for (var championName of sortedChamps){
+		// 	renderer.drawInteractiveIcon(ctnr,championName);
+		// 	renderer.drawPopularityBar(ctnr,analyzer.championsData[championName]);
+		// 	var vis = analyzer.championsData[championName].win * analyzer.championsData[championName].played;
+		// 	var tru = analyzer.championsData[championName].trueImpact * 100;
+		// 	var d = vis / tru;
+		// 	console.log(championName + ": " + vis.toPrecision(2) +  "% , " + tru.toPrecision(2) + "%");
+		// }
 
 		//console.table(analyzer.championsData);
 		// console.log(analyzer.sum("picked").toPrecision(3));
