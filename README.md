@@ -84,9 +84,9 @@ The differential equation of the Impact formula allow us to establish this frami
 
 ##Visible Impact
 The *visible impact* is the impact calculated with the play rate of the champions. Using the formula introduced before we can show that:  
-<img src="http://i.imgur.com/E2w4m9o.png" height="70" /> 
-<img src="http://i.imgur.com/Oe01lwO.png" height="25" /> 
-<img src="http://i.imgur.com/LNGQDXT.png" height="25" /> 
+<img src="http://i.imgur.com/E2w4m9o.png" height="70" />  
+<img src="http://i.imgur.com/Oe01lwO.png" height="25" />  
+<img src="http://i.imgur.com/LNGQDXT.png" height="25" />  
 
 The visible impact is the direct observation of the games results. It shows how every champion performed in the game.
 
