@@ -5,42 +5,52 @@ define(function (require) {
     var analyzer = require('./analyzer');
     var renderer = require('./renderer');
 
+    var ts_from = 0;
+    var ts_to = 0;
+
+    var graph;
+
+	//init graph
     var query = {};
-    getData(query,start);
+    getData(query, init);
 
-    function start(data){
+    function init(sample){
+    	var newDataSet = analyzer.newDataSet(sample);
+    	var ds = newDataSet.data;
+    	var placeholder = document.getElementById("placeholder");
+		graph = renderer.drawGraph(placeholder, ds, "win", "pick", 0.42, 0.58, 0, 0.7);
+    }
 
-    	analyzer.setDataSample(data);
+    var date_from = document.getElementById("date_from");
+    date_from.onchange = function(e){
+    	var date = new Date(e.srcElement.value);
+    	ts_from = date.getTime();
 
-    	console.log("Number of champions: "  + analyzer.nbOfChampions());
-		console.log("Number of games: "  + analyzer.sum("games"));
+    	getNewData();
+    }
+    var date_to = document.getElementById("date_to");
+    date_to.onchange = function(e){
+    	var date = new Date(e.srcElement.value);
+    	ts_to = date.getTime();
 
-		var ctnr = document.getElementById("test");
-		renderer.drawGraph(ctnr, analyzer.championsData, "win", "played", 0.40, 0.60, 0, 0.6);
+    	getNewData();
+    }
 
-		// var sortedChamps = analyzer.sortChampionsDataBy("trueImpact");
-		// for (var championName of sortedChamps){
-		// 	renderer.drawInteractiveIcon(ctnr,championName);
-		// 	renderer.drawPopularityBar(ctnr,analyzer.championsData[championName]);
-		// 	var vis = analyzer.championsData[championName].win * analyzer.championsData[championName].played;
-		// 	var tru = analyzer.championsData[championName].trueImpact * 100;
-		// 	var d = vis / tru;
-		// 	console.log(championName + ": " + vis.toPrecision(2) +  "% , " + tru.toPrecision(2) + "%");
-		// }
+    function getNewData(){
+    	if (ts_from >= ts_to) return;
 
-		//console.table(analyzer.championsData);
-		// console.log(analyzer.sum("picked").toPrecision(3));
-		// console.log(analyzer.sum("banned").toPrecision(3));
-		// console.log(analyzer.wAverage("win","picked").toPrecision(3));
-		// console.log("-");
-		// console.log(analyzer.sum("calculatedPicked").toPrecision(3));
-		// console.log(analyzer.wAverage("win","calculatedPicked").toPrecision(3));
-		// console.log("-");
-		// console.log(analyzer.average("visibleImpact").toPrecision(3));
-		// console.log(analyzer.championsData["Swain"].visibleImpact);
-		// console.log("-");
-		// console.log(analyzer.average("trueImpact").toPrecision(3));
-		// console.log(analyzer.championsData["Swain"].trueImpact);
+    	var query = {periode:[ts_from, ts_to]};
+    	getData(query, setNewData);
+    }
+
+    function setNewData(sample){
+    	var newDataSet = analyzer.newDataSet(sample);
+    	updateGraph(newDataSet.data);
+    }
+
+    function updateGraph(newDataSet){
+    	var placeholder = document.getElementById("placeholder");
+		graph.update(newDataSet);
     }
 
 });
