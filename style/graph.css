@@ -1,44 +1,210 @@
-/* GRAPH */
-.graph-area {
-	position: relative;
-	width: 100%;
-	height: 100%;
+
+.graph-plot-area-container {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: calc(100% - 30px);
+  height: calc(100% - 30px);
+  overflow: hidden;
 }
-.graph-axe {
-	position: absolute;
-	box-sizing: border-box;
+.graph-y-axe-container {
+  box-sizing: border-box;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: calc(100% - 30px);
+  border-right: 5px solid #2F6187;
+  overflow: hidden;
 }
-:root {
-	--axe-size: 30px;
+.graph-x-axe-container {
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: calc(100% - 30px);
+  height: 30px;
+  border-top: 5px solid #2F6187;
+  overflow: hidden;
 }
-.graph-axe-horizontal {
-	bottom: 0;
-	left: var(--axe-size);
-	height: var(--axe-size);
-	width: calc(100% - var(--axe-size));
-	border-top: 3px solid #0778A8;
+
+
+
+
+/* X-AXE */
+.x-axe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: 1s;
+  transition-property: left, width;
 }
-.graph-axe-vertical {
-	bottom: var(--axe-size);
-	left: 0px;
-	height: calc(100% - var(--axe-size));
-	width: var(--axe-size);
-	border-right: 3px solid #0778A8;
+.x-axe--instant {
+  transition: none;
 }
+.x-axe-tick-box {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+}
+
+.x-axe-tick-box__tick {
+  width: 1px;
+  background-color: #2F6187;
+}
+
+.x-axe-tick-box__tick-label {
+  width: 30px;
+  margin-left: -15px;
+  margin-top: 5px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s;
+  font-size: 0.8em;
+}
+.x-axe-tick-box__tick-label--visible {
+  opacity: 1;
+}
+
+.x-axe-tick-box__tick--cursor {
+  height: 50%;
+  width: 4px;
+  margin-left: -2px;
+  background-color: #D2433F;
+}
+
+.x-axe-tick-box__tick--tenth {
+  z-index: 0;
+  height: 10%;
+}
+
+.x-axe-tick-box__tick--unit {
+  z-index: 1;
+  height: 15%;
+}
+
+.x-axe-tick-box__tick--decade {
+  z-index: 2;
+  width: 2px;
+  margin-left: -1px;
+  height: 30%;
+}
+
+.x-axe-tick-box__tick--hundred {
+  z-index: 3;
+  width: 4px;
+  margin-left: -2px;
+  height: 45%;
+}
+
+
+
+
+/* Y-AXE */
+.y-axe {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transition: 1s;
+  transition-property: bottom, height;
+}
+.y-axe--instant {
+  transition: none;
+}
+.y-axe-tick-box {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+}
+
+.y-axe-tick-box__tick {
+  position: absolute;
+  right: 0;
+  height: 1px;
+  background-color: #2F6187;
+}
+
+.y-axe-tick-box__tick-label {
+  width: 30px;
+  margin-right: 5px;
+  margin-top: -6px;
+  text-align: center;
+  opacity: 0;
+  transition: opacity 1s;
+  font-size: 0.8em;
+}
+.y-axe-tick-box__tick-label--visible {
+  opacity: 1;
+}
+
+.y-axe-tick-box__tick--cursor {
+  width: 50%;
+  height: 4px;
+  margin-bottom: -2px;
+  background-color: #D2433F;
+}
+
+.y-axe-tick-box__tick--tenth {
+  z-index: 0;
+  width: 10%;
+}
+
+.y-axe-tick-box__tick--unit {
+  z-index: 1;
+  width: 15%;
+}
+
+.y-axe-tick-box__tick--decade {
+  z-index: 2;
+  height: 2px;
+  margin-bottom: -1px;
+  width: 30%;
+}
+
+.y-axe-tick-box__tick--hundred {
+  z-index: 3;
+  height: 4px;
+  margin-bottom: -2px;
+  width: 45%;
+}
+
+
+
+
+/* PLOT AREA */
 .graph-plot-area {
-	position: absolute;
-	left: var(--axe-size);
-	bottom: var(--axe-size);
-	width: calc(100% - var(--axe-size));
-	height: calc(100% - var(--axe-size));
-	background-color: #9FD6EE;
-	overflow: hidden;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /*background-color: #DCE9F3;*/
+  transition: 1s;
+  transition-property: left, bottom, width, height;
 }
+.graph-plot-area--instant {
+  transition: none;
+}
+
+
+
+
+
+/* ICONS */
 :root {
 	--icon-size: 80px;
 }
 .graph-icon-container {
 	position: absolute;
+	pointer-events: none;
 	width: var(--icon-size);
 	height: var(--icon-size);
 	margin: calc(-0.5 * var(--icon-size));

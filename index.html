@@ -1,16 +1,27 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
         <script data-main="app" src="lib/require-2.2.0.min.js"></script>
         <link rel="stylesheet" type="text/css" href="style/main.css">
         <link rel="stylesheet" type="text/css" href="style/graph.css">
         <link rel="stylesheet" type="text/css" href="style/popularityBar.css">
     </head>
     <body>
-    	<div id="graphContainer">
-        	<div id="placeholder"></div>
+        <div class="box">
+        	<div class="graphContainer">
+                <div class="graph-plot-area-container" id="graph-plot-area-container">
+                    <div class="graph-plot-area" id="graph-plot-area"></div>
+                </div>
+            	<div class="graph-y-axe-container" id="graph-y-axe-container">
+                    <div class="y-axe" id="y-axe"></div>
+                </div>
+                <div class="graph-x-axe-container" id="graph-x-axe-container">
+                    <div class="x-axe" id="x-axe"></div>
+                </div>
+            </div>
+            <input type="date" id="date_from"></input>
+            <input type="date" id="date_to"></input>
         </div>
-        <input type="date" id="date_from"></input>
-        <input type="date" id="date_to"></input>
     </body>
 </html>

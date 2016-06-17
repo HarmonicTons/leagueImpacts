@@ -18,7 +18,7 @@ define(function (require) {
     	var newDataSet = analyzer.newDataSet(sample);
     	var ds = newDataSet.data;
     	var placeholder = document.getElementById("placeholder");
-		graph = renderer.drawGraph(placeholder, ds, "win", "pick", 0.42, 0.58, 0, 0.7);
+		graph = renderer.drawGraph(placeholder, ds, "win", "pick", 42, 58, 0, 70);
     }
 
     var date_from = document.getElementById("date_from");

@@ -12,6 +12,7 @@ define(function () {
 		this.update = function(){
 			this.availability  = 1 - this.ban;
 			this.pick          = this.play / this.availability;
+			this.log2pick      = Math.log2(this.pick*100);
 			this.pickOrBan     = this.play + this.ban;
 			this.absenteeism   = 1 - this.pickOrBan;
 			this.visibleImpact = 9 * (1 - ( 1 - 1 / 5 * this.win * this.play ) / ( 1 - this.play / 10 ));
