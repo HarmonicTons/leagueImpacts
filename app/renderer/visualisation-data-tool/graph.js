@@ -83,7 +83,9 @@ define(['./axe', './plotArea'], function (Axe, PlotArea) {
 			this.yAxe.init();
 		}
 
-		this.getCoordinates = function(xv, yv){
+		this.getRelativePosition = function(value){
+			var xv = value.x;
+			var yv = value.y;
 			var x = (xv * 100 - this.xAxe.min) / (this.xAxe.max - this.xAxe.min) * 100;
 			var y = (yv * 100 - this.yAxe.min) / (this.yAxe.max - this.yAxe.min) * 100;
 			return {x: x, y: y};
@@ -95,16 +97,32 @@ define(['./axe', './plotArea'], function (Axe, PlotArea) {
 				var ydt = this.yAxe.dataType;
 				var xv = this.data[championName][xdt];
 				var yv = this.data[championName][ydt];
-				var coor = this.getCoordinates(xv, yv);
+				var coor = this.getRelativePosition({x: xv, y: yv});
 				this.plotArea.addIcon(championName, coor.x, coor.y);
 			}
 		}
 
 		this.displayEllipse = function(centerValue, minValue, maxValue){
-			var center = this.getCoordinates(centerValue.x, centerValue.y);
-			var min = this.getCoordinates(minValue.x, minValue.y);
-			var max = this.getCoordinates(maxValue.x, maxValue.y);
+			var center = this.getRelativePosition(centerValue);
+			var min = this.getRelativePosition(minValue);
+			var max = this.getRelativePosition(maxValue);
 			this.plotArea.addEllipsePlot(center, min, max);
+		}
+
+		this.displayLine = function(v1, v2, style) {
+			var p1 = this.getRelativePosition(v1);
+			var p2 = this.getRelativePosition(v2);
+			this.plotArea.addLinePlot(p1, p2, style);
+		}
+
+		this.displayVerticalLine = function(v, style) {
+			var x = this.getRelativePosition({x:v, y:0}).x;
+			this.plotArea.addLinePlot({x:x, y:0}, {x:x, y:100}, style);
+		}
+
+		this.displayHorizontalLine = function(v, style) {
+			var y = this.getRelativePosition({x:0, y:v}).y;
+			this.plotArea.addLinePlot({x:0, y:y}, {x:100, y:y}, style);
 		}
 
 		this.update = function(data){
@@ -118,7 +136,7 @@ define(['./axe', './plotArea'], function (Axe, PlotArea) {
 				var ydt = this.yAxe.dataType;
 				var xv = this.data[championName][xdt];
 				var yv = this.data[championName][ydt];
-				var coor = this.getCoordinates(xv, yv);
+				var coor = this.getRelativePosition({x: xv, y: yv});
 				this.plotArea.moveIcon(championName, coor.x, coor.y);
 			}
 		}

@@ -1,7 +1,7 @@
 define(function () {
 
 	/**
-	 * Champion Icons Model
+	 * Ellipse Plot Model
 	 */
 	var EllipsePlot = function(plotArea, center, min, max){
 		this.plotArea = plotArea;

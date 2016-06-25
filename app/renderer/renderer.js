@@ -27,6 +27,16 @@ define(['jquery', './visualisation-data-tool/graph'], function ($, Graph) {
 			}
 		},
 
+		displayVerticalLine: function(graphId, value, style){
+			var graph = this._elements[graphId];
+			graph.displayVerticalLine(value, style);
+		},
+
+		displayHorizontalLine: function(graphId, value, style){
+			var graph = this._elements[graphId];
+			graph.displayHorizontalLine(value, style);
+		},
+
 		displayChampionsIcons: function(graphId, championsStats){
 			var graph = this._elements[graphId];
 			graph.setData(championsStats);

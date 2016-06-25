@@ -118,6 +118,19 @@ define(['./championData'], function (ChampionData) {
 
 			return deciles;
 		}
+		// return an array of 5 int for each value of the corresponding quarter 
+		this.quarters = function(prop){
+			var sortedChampions = this.getSortedArray(prop);
+			var quarters = [];
+			for (let i=0; i<4; i++){
+			var index = Math.floor(i / 4 * sortedChampions.length);
+			quarters.push( this.data[sortedChampions[index]][prop] );
+			}
+			// last value:
+			quarters.push(this.data[sortedChampions[sortedChampions.length - 1]][prop]);
+
+			return quarters;
+		}
 	}
 	return DataSet;
 });

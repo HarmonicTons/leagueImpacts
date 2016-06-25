@@ -1,4 +1,4 @@
-define(['./championIcon', './ellipsePlot'], function (ChampionIcon, EllipsePlot) {
+define(['./championIcon', './ellipsePlot', './linePlot'], function (ChampionIcon, EllipsePlot, LinePlot) {
 
 	/**
 	 * Plot Area
@@ -38,6 +38,11 @@ define(['./championIcon', './ellipsePlot'], function (ChampionIcon, EllipsePlot)
 		this.addEllipsePlot = function(center, min, max){
 			var ellipsePlot = new EllipsePlot(this, center, min, max);
 			this.plots.push(ellipsePlot);
+		}
+
+		this.addLinePlot = function(p1, p2, style){
+			var linePlot = new LinePlot(this, p1, p2, style);
+			this.plots.push(linePlot);
 		}
 	}
 	return PlotArea;

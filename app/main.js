@@ -30,7 +30,17 @@ define(function (require) {
             [{x: xDeciles[5], y: yDeciles[5]}, {x: xDeciles[3], y: yDeciles[3]}, {x: xDeciles[7], y: yDeciles[7]}],
             [{x: xDeciles[5], y: yDeciles[5]}, {x: xDeciles[4], y: yDeciles[4]}, {x: xDeciles[6], y: yDeciles[6]}]
             ];
-        renderer.displayEllipses(graph, values);
+        //renderer.displayEllipses(graph, values);
+
+        //lines 
+        var xQuarters = newDataSet.quarters("win");
+        var yQuarters = newDataSet.quarters("pick");
+        renderer.displayVerticalLine(graph, xQuarters[2]);
+        renderer.displayVerticalLine(graph, xQuarters[1], "dashed");
+        renderer.displayVerticalLine(graph, xQuarters[3], "dashed");
+        renderer.displayHorizontalLine(graph, yQuarters[2]);
+        renderer.displayHorizontalLine(graph, yQuarters[1], "dashed");
+        renderer.displayHorizontalLine(graph, yQuarters[3], "dashed");
 
         // champions icons
         renderer.displayChampionsIcons(graph, ds);

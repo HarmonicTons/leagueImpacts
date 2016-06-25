@@ -21,6 +21,7 @@ body {
 }
 .graphContainer {
   position: relative;
-  width: 90%;
+  margin: auto;
+  width: 98%;
   height: 90%;
 }
