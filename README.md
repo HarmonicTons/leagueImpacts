@@ -65,7 +65,7 @@ For instance if the average win rate of the game without Shyvana is 49.2% then h
 
 The raw impact is never used like so. We first calculate the *relative impact*:
 <img src="http://i.imgur.com/LxBD9w9.png" height="180" />  
-This allow us to work on more significant numbers. For instance the relative Impact on Teemo would be 1.6%.
+This allow us to work on more significant numbers. For instance the relative Impact on Shyvana would be 1.6%.
 
 Each game of league of legends count 10 champions. Because of that a champion cannot have a relative impact of more than 1/9. To neglect this effect and allow the Impact to go from -1 to +1 we introduce this new formula for the *Impact*:  
 <img src="http://i.imgur.com/r8mMryu.png" height="70" /> 
@@ -115,6 +115,6 @@ To mesure the distance between 2 datasets the following formula is proposed:
 <img src="http://i.imgur.com/GvtYrnZ.png" height="70" />  
 <img src="http://i.imgur.com/RpyCZ8P.png" height="20" />  
 
-
+The distance between two datasets is null if, and only if, the winrate, playrate and banrate of each champion are equals in the two datasets.
 
 
