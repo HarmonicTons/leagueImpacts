@@ -61,7 +61,7 @@ When calculated with p as the play rate on a good sample of data this average wi
 
 The *raw impact* of a champion is defined by the difference between the average win rate of the game and the average win rate of the game without this champion:  
 <img src="http://i.imgur.com/cnDVVeB.png" height="128" />  
-For instance if the average win rate of the game without Teemo is 49.2% then her raw impact is 0.008 (=0.500-0.492).
+For instance if the average win rate of the game without Shyvana is 49.2% then her raw impact is 0.008 (=0.500-0.492).
 
 The raw impact is never used like so. We first calculate the *relative impact*:
 <img src="http://i.imgur.com/LxBD9w9.png" height="180" />  
@@ -98,3 +98,23 @@ This is an approximation of the result and does not take account of some rare ca
 The true impact is a deeper observation of the game than the visible impact. It show how every champion would perform if they weren't banned. For instance a champion with a very high win rate and very high ban rate would have a low visible impact because he would never be available. The true impact of this champion on the other hand would be very high.
 
 The true impact allow us to really show the current meta of the game, not taking in account the ban but really the performance of every champion.
+
+
+##DataSet
+Server-side the champions's data are registered as JSON-objects as follow:  
+<code>{"championName":"Volibear","win":0.5341,"picked":0.1143,"banned":0.0475,"games":15017,"date":1464276642561}</code>  
+These data represent the stats of a champion during the last 24h in ranked (all queue) on EUW. The "picked" property represent the playrate (not the pickrate). The date represents the timestamp at the moment the data were collected.
+
+A group of data is called a **selection of data**.  
+A **dataset** represents the average stats for each champion in a selection of data.
+To calcultate the average stats we use the weighted average formula with the number of game as weight.
+
+##Comparing datasets
+Comparing datasets allows studying the evolution of the game allong time.  
+To mesure the distance between 2 datasets the following formula is proposed:
+<img src="http://i.imgur.com/GvtYrnZ.png" height="70" />  
+<img src="http://i.imgur.com/RpyCZ8P.png" height="20" />  
+
+
+
+
