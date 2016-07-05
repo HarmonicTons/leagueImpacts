@@ -10,9 +10,52 @@ define(function (require) {
 
     var graph;
 
-	//init graph
-    var query = {};
-    getData(query, init);
+
+    var oneDay = 24*60*60*1000;
+    var patches = [1463450400000, 1464832800000, 1465956000000, 1467172800000, Date.now()];
+    function patchDate(i){
+        return patches[i] + oneDay;
+    }
+    var ts = 1463450400000;
+    var mv = 13;
+    var dt = 1;
+    function nextData(){
+        mv++;
+        if (mv > 50) {
+            console.log(deltas);
+            return;
+        }
+        var query = {periode: [ts+oneDay*(mv-dt), ts+oneDay*(mv)]};
+        getData(query, calcDelta);
+        query = {periode: [ts+oneDay*(mv),ts+oneDay*(mv+dt)]}; 
+        getData(query, calcDelta);
+    }
+    nextData();
+
+    function calcBalance(sample){
+        var newDataSet = analyzer.newDataSet(sample);
+        var ds = newDataSet.data;
+        var bi = analyzer.balanceIndex(ds);
+        console.log(bi.toPrecision(2));
+    }
+
+    var samples = [];
+    var deltas = [];
+    function calcDelta(sample){
+        samples.push(sample);
+        if (samples.length < 2) return;
+        var newDataSet1 = analyzer.newDataSet(samples[0]);
+        var ds1 = newDataSet1.data;
+        var newDataSet2 = analyzer.newDataSet(samples[1]);
+        var ds2 = newDataSet2.data;
+
+        var delta = analyzer.delta2(ds1, ds2, 10);
+        deltas.push(delta.toPrecision(3));
+
+        samples = [];
+
+        nextData();
+    }
 
     function init(sample){
     	var newDataSet = analyzer.newDataSet(sample);
