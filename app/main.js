@@ -18,16 +18,16 @@ define(function (require) {
     }
     var ts = 1463450400000;
     var mv = 13;
-    var dt = 1;
+    var dt = 6;
     function nextData(){
         mv++;
         if (mv > 50) {
             console.log(deltas);
             return;
         }
-        var query = {periode: [ts+oneDay*(mv-dt), ts+oneDay*(mv)]};
+        var query = {periode: [ts+oneDay*(mv-dt), ts+oneDay*(mv-1)]};
         getData(query, calcDelta);
-        query = {periode: [ts+oneDay*(mv),ts+oneDay*(mv+dt)]}; 
+        query = {periode: [ts+oneDay*(mv-1),ts+oneDay*(mv+1)]}; 
         getData(query, calcDelta);
     }
     nextData();
@@ -49,7 +49,7 @@ define(function (require) {
         var newDataSet2 = analyzer.newDataSet(samples[1]);
         var ds2 = newDataSet2.data;
 
-        var delta = analyzer.delta2(ds1, ds2, 10);
+        var delta = analyzer.delta2(ds1, ds2, 100);
         deltas.push(delta.toPrecision(3));
 
         samples = [];
